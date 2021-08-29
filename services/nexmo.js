@@ -12,7 +12,8 @@ class NexmoService {
                 api_secret: nexmo.api_secret,
                 from: body.from,
                 to: body.to,
-                text: body.text
+                text: body.text,
+                type: 'unicode'
             }
         }
         try {
