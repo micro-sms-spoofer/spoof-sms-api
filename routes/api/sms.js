@@ -4,13 +4,14 @@ const Log = require('../../model/Log')
 const passport = require('passport')
 const NexmoService = require('../../services/nexmo')
 const validateSmsBody = require('../../validate/sms')
+const validateXUsernameMiddleware = require('../../middleware/auth')
 
 /** 
  * @route POST api/sms/send
  * @desc Send Spoof SMS
  * @access Private
  */
- router.post('/send', passport.authenticate('jwt', { session: false} ) , async (req, res) => {
+ router.post('/send', passport.authenticate('jwt', { session: false} ), validateXUsernameMiddleware.validateXUsername , async (req, res) => {
     const data = validateSmsBody.validate(req.body)
     if(data.error){
         return res.status(400).json({
